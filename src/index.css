@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+/* LAXZ EVENTS brand tokens (client-supplied palette) */
+:root {
+  --primary: #D4AF72;
+  --primary-dark: #B88946;
+  --secondary: #0B0B0B;
+
+  --background: #F5EDE5;
+  --background-light: #FAF7F3;
+  --background-dark: #0B0B0B;
+
+  --accent-gold: #E2C18A;
+  --accent-beige: #E8D5BF;
+  --accent-charcoal: #28231E;
+
+  --text-primary: #0B0B0B;
+  --text-secondary: #6F6256;
+  --text-light: #F5EDE5;
+
+  --gold-gradient: linear-gradient(135deg, #B88946, #F1D9A8, #D4AF72);
+  --luxury-gradient: linear-gradient(135deg, #0B0B0B, #28231E, #0B0B0B);
+}
+
+@theme {
+  --font-sans: 'Jost', 'Noto Sans Devanagari', system-ui, sans-serif;
+  --font-display: 'Cormorant Garamond', 'Noto Serif Devanagari', Georgia, serif;
+
+  --color-gold: #D4AF72;
+  --color-gold-dark: #B88946;
+  --color-gold-soft: #E2C18A;
+  --color-ink: #0B0B0B;
+  --color-charcoal: #28231E;
+  --color-cream: #F5EDE5;
+  --color-cream-light: #FAF7F3;
+  --color-beige: #E8D5BF;
+  --color-muted: #6F6256;
+
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  background: var(--background);
+  color-scheme: light;
+  -webkit-text-size-adjust: 100%;
+}
+
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, .font-display { font-family: var(--font-display); font-weight: 600; }
+
+/* Devanagari conjuncts break with tracking; keep Hindi text natural. */
+html[lang='hi'] * { letter-spacing: normal !important; }
+html[lang='hi'] h1, html[lang='hi'] h2, html[lang='hi'] h3 { line-height: 1.2; font-family: 'Noto Serif Devanagari', var(--font-display); }
+
+::selection { background: var(--primary); color: var(--secondary); }
+
+:focus-visible {
+  outline: 2px solid var(--primary-dark);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+img { max-width: 100%; }
+
+.skip-link {
+  position: fixed; left: 1rem; top: -4rem; z-index: 200;
+  background: var(--secondary); color: var(--text-light); padding: .6rem 1rem; border-radius: .5rem;
+  transition: top .2s;
+}
+.skip-link:focus { top: 1rem; }
+
+.container-x { width: 100%; max-width: 80rem; margin-inline: auto; padding-inline: 1.25rem; }
+@media (min-width: 768px) { .container-x { padding-inline: 2.5rem; } }
+
+/* Gold gradient text: deeper on cream for contrast, bright on black */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #8F6A2C, #B88946 50%, #A47A38);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.bg-gold-gradient { background: var(--gold-gradient); }
+.bg-sand { background: linear-gradient(180deg, #EBDAC6, #E8D5BF); }
+/* Soft gold glow used behind light sections */
+.glow { background-image: radial-gradient(ellipse at 15% 0%, rgba(212,175,114,.28), transparent 55%), radial-gradient(ellipse at 95% 100%, rgba(184,137,70,.16), transparent 50%); }
+
+/* Thin gold rule with a diamond, used as a section ornament */
+.ornament { display: flex; align-items: center; gap: .75rem; color: var(--primary-dark); }
+.ornament::before, .ornament::after { content: ''; height: 1px; width: 3rem; background: currentColor; opacity: .6; }
+.ornament > i { width: 6px; height: 6px; transform: rotate(45deg); background: currentColor; }
+
+.card-light {
+  background: var(--background-light);
+  border: 1px solid rgba(184, 137, 70, .22);
+  box-shadow: 0 1px 0 rgba(255,255,255,.7) inset, 0 18px 40px -28px rgba(40, 35, 30, .35);
+}
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.marquee-track { display: flex; width: max-content; animation: marquee 45s linear infinite; }
+
+@keyframes float-orb {
+  0%, 100% { transform: translate3d(0,0,0) scale(1); }
+  50% { transform: translate3d(30px,-40px,0) scale(1.12); }
+}
+.orb { animation: float-orb 14s ease-in-out infinite; will-change: transform; }
+
+@keyframes scroll-line {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+.scroll-line { animation: scroll-line 2.2s var(--ease-premium) infinite; }
+
+@keyframes sheen { from { transform: translateX(-120%); } to { transform: translateX(220%); } }
+
+/* Form controls on the light surface */
+.field {
+  width: 100%; min-height: 3rem; border-radius: .75rem; padding: .7rem 1rem;
+  background: #fff; color: var(--text-primary);
+  border: 1px solid rgba(111, 98, 86, .35);
+  transition: border-color .2s, box-shadow .2s;
+}
+.field::placeholder { color: rgba(111, 98, 86, .6); }
+.field:focus { outline: none; border-color: var(--primary-dark); box-shadow: 0 0 0 3px rgba(212,175,114,.35); }
+.field[aria-invalid='true'] { border-color: #b3261e; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Arched image panel: left edge is a half-ellipse on desktop */
+.arch-frame { border-radius: 1.5rem; }
+@media (min-width: 1024px) { .arch-frame { border-radius: 50% 0 0 50% / 50% 0 0 50%; } }
